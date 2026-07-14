@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI LearnSphere | แหล่งเรียนรู้และเครื่องมือ AI ครบวงจร</title>
+    
+    <!-- Google Fonts: Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        'ai-dark': '#0F172A',      /* Slate 900 */
+                        'ai-card': '#1E293B',      /* Slate 800 */
+                        'ai-primary': '#6366F1',   /* Indigo 500 */
+                        'ai-secondary': '#A855F7', /* Purple 500 */
+                        'ai-accent': '#06B6D4',    /* Cyan 500 */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom neon shadows and glows */
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="font-sans bg-ai-dark text-slate-100 antialiased overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-ai-primary to-ai-secondary flex items-center justify-center neon-glow-primary">
+                            <i class="fa-solid fa-brain text-white text-xl animate-pulse"></i>
+                        </div>
+                        <span class="font-bold text-2xl tracking-wider text-white">AI<span class="text-ai-accent">Sphere</span></span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-slate-300 hover:text-ai-accent font-medium transition-colors">หน้าแรก</a>
+                    <a href="#roadmap" class="text-slate-300 hover:text-ai-accent font-medium transition-colors">เส้นทางเรียนรู้</a>
+                    <a href="#tools" class="text-slate-300 hover:text-ai-accent font-medium transition-colors">เครื่องมือ AI</a>
+                    <a href="#playground" class="text-slate-300 hover:text-ai-accent font-medium transition-colors">ลองเล่น AI</a>
+                    <a href="#profile" class="text-slate-300 hover:text-ai-accent font-medium transition-colors">ผู้จัดทำ</a>
+                    <a href="#roadmap" class="bg-gradient-to-r from-ai-primary to-ai-secondary text-white px-6 py-2.5 rounded-full font-medium hover:opacity-90 hover:scale-105 transition-all shadow-md">เริ่มเรียนฟรี</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-ai-dark border-t border-slate-800 absolute w-full shadow-2xl">
+            <div class="px-4 pt-3 pb-6 space-y-2 text-center">
+                <a href="#home" class="mobile-link block px-3 py-3 text-slate-300 font-medium hover:text-ai-accent hover:bg-slate-800 rounded-xl transition-all">หน้าแรก</a>
+                <a href="#roadmap" class="mobile-link block px-3 py-3 text-slate-300 font-medium hover:text-ai-accent hover:bg-slate-800 rounded-xl transition-all">เส้นทางเรียนรู้</a>
+                <a href="#tools" class="mobile-link block px-3 py-3 text-slate-300 font-medium hover:text-ai-accent hover:bg-slate-800 rounded-xl transition-all">เครื่องมือ AI</a>
+                <a href="#playground" class="mobile-link block px-3 py-3 text-slate-300 font-medium hover:text-ai-accent hover:bg-slate-800 rounded-xl transition-all">ลองเล่น AI</a>
+                <a href="#profile" class="mobile-link block px-3 py-3 text-slate-300 font-medium hover:text-ai-accent hover:bg-slate-800 rounded-xl transition-all">ผู้จัดทำ</a>
+                <a href="#roadmap" class="mobile-link block mt-4 px-3 py-3 bg-gradient-to-r from-ai-primary to-ai-secondary text-white font-medium rounded-full mx-8">เริ่มเรียนฟรี</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 hero-gradient overflow-hidden">
+        <!-- Background Grid Effect -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800 border border-slate-700 mb-8 animate-bounce">
+                <span class="w-2.5 h-2.5 rounded-full bg-ai-accent animate-ping"></span>
+                <span class="text-xs sm:text-sm text-slate-300 font-medium">อัปเดตหลักสูตรและเครื่องมือ AI ประจำปี 2026</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-tight">
+                ก้าวสู่โลกอนาคต <br class="hidden sm:inline">
+                ด้วยการพัฒนาทักษะ <span class="gradient-text">Generative AI</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
+                เริ่มต้นศึกษาเทคโนโลยี AI จากศูนย์ พร้อมรวบรวมสุดยอดเครื่องมือปัญญาประดิษฐ์เพื่อเพิ่มประสิทธิภาพในการทำงาน การเขียนโค้ด และการสร้างสรรค์ผลงานของคุณให้เร็วขึ้น 10 เท่า!
+            </p>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <a href="#roadmap" class="w-full sm:w-auto bg-gradient-to-r from-ai-primary to-ai-secondary text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 hover:shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>เริ่มศึกษาเส้นทางการเรียน</span>
+                </a>
+                <a href="#tools" class="w-full sm:w-auto bg-slate-800/80 hover:bg-slate-800 text-white border border-slate-700 px-8 py-4 rounded-full font-semibold text-lg hover:border-ai-accent transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-list"></i>
+                    <span>สำรวจเครื่องมือ AI</span>
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-24 pt-12 border-t border-slate-800 text-center">
+                <div>
+                    <div class="text-3xl sm:text-4xl font-bold text-white mb-1">4 ระดับ</div>
+                    <div class="text-sm text-slate-400">เส้นทางการเรียนรู้</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-bold text-ai-accent mb-1">30+ ชนิด</div>
+                    <div class="text-sm text-slate-400">เครื่องมือ AI แนะนำ</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-bold text-ai-secondary mb-1">ใช้งานจริง</div>
+                    <div class="text-sm text-slate-400">แล็บปฏิบัติการจำลอง</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-bold text-white mb-1">100% ฟรี</div>
+                    <div class="text-sm text-slate-400">เข้าถึงความรู้ไม่มีค่าใช้จ่าย</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Roadmap Section -->
+    <section id="roadmap" class="py-28 bg-slate-900/50 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-5">เส้นทางการเรียนรู้ AI (Roadmap)</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-ai-primary to-ai-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg font-light">
+                    หมดความกังวลว่าต้องเริ่มตรงไหน ด้วยลำดับการเรียนรู้ 4 ขั้นตอนที่ปูพื้นฐานตั้งแต่ศูนย์จนสามารถพัฒนาแอปพลิเคชัน AI ได้จริง
+                </p>
+            </div>
+
+            <!-- Vertical Roadmap Timeline -->
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Center Line for Desktop -->
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-slate-800"></div>
+
+                <!-- Step 1 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 group">
+                    <!-- Dot -->
+                    <div class="absolute md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full bg-ai-primary border-4 border-ai-dark z-10 hidden md:block group-hover:scale-125 transition-transform"></div>
+                    <!-- Left Side Content -->
+                    <div class="w-full md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                        <div class="bg-ai-card p-8 rounded-2xl border border-slate-800 hover:border-ai-primary transition-all shadow-xl">
+                            <span class="text-xs font-bold text-ai-primary uppercase tracking-widest block mb-2">ขั้นตอนที่ 1</span>
+                            <h3 class="text-2xl font-bold text-white mb-3">พื้นฐานโปรแกรมมิ่งและคณิตศาสตร์</h3>
+                            <p class="text-slate-400 font-light text-base leading-relaxed">
+                                เริ่มต้นเรียนรู้ภาษา Python คอร์สสั้นด้านสถิติ และพีชคณิตเชิงเส้น (Linear Algebra) ซึ่งเป็นหัวใจสำคัญของการเขียนโปรแกรมป้อนคำสั่งให้โมเดล AI เข้าใจโครงสร้างข้อมูล
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2 md:justify-end">
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Python 101</span>
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Mathematics</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 group">
+                    <div class="absolute md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full bg-ai-secondary border-4 border-ai-dark z-10 hidden md:block group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
+                    <!-- Right Side Content -->
+                    <div class="w-full md:w-1/2 md:pl-12">
+                        <div class="bg-ai-card p-8 rounded-2xl border border-slate-800 hover:border-ai-secondary transition-all shadow-xl">
+                            <span class="text-xs font-bold text-ai-secondary uppercase tracking-widest block mb-2">ขั้นตอนที่ 2</span>
+                            <h3 class="text-2xl font-bold text-white mb-3">วิทยาศาสตร์ข้อมูล & Machine Learning</h3>
+                            <p class="text-slate-400 font-light text-base leading-relaxed">
+                                ก้าวสู่การทำ Data Wrangling, รู้จักไลบรารีสําคัญอย่าง Pandas, NumPy, Scikit-Learn เพื่อสร้างโมเดลทำนายผล (Prediction) และวิเคราะห์สถิติก่อนต่อยอดสู่โมเดลขนาดใหญ่
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Data Analysis</span>
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">ML Algorithms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24 group">
+                    <div class="absolute md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full bg-ai-accent border-4 border-ai-dark z-10 hidden md:block group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
+                        <div class="bg-ai-card p-8 rounded-2xl border border-slate-800 hover:border-ai-accent transition-all shadow-xl">
+                            <span class="text-xs font-bold text-ai-accent uppercase tracking-widest block mb-2">ขั้นตอนที่ 3</span>
+                            <h3 class="text-2xl font-bold text-white mb-3">Deep Learning & NLP</h3>
+                            <p class="text-slate-400 font-light text-base leading-relaxed">
+                                เจาะลึกโครงข่ายประสาทเทียม (Neural Networks) ใช้งาน PyTorch หรือ TensorFlow เพื่อศึกษาโครงสร้างการประมวลผลภาษาธรรมชาติ (Natural Language Processing) และโมเดลอย่าง Transformers
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2 md:justify-end">
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">PyTorch</span>
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Neural Networks</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-12 hidden md:block"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative flex flex-col md:flex-row items-center group">
+                    <div class="absolute md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full bg-emerald-500 border-4 border-ai-dark z-10 hidden md:block group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 md:pr-12 hidden md:block"></div>
+                    <!-- Right Side Content -->
+                    <div class="w-full md:w-1/2 md:pl-12">
+                        <div class="bg-ai-card p-8 rounded-2xl border border-slate-800 hover:border-emerald-500 transition-all shadow-xl">
+                            <span class="text-xs font-bold text-emerald-500 uppercase tracking-widest block mb-2">ขั้นตอนที่ 4</span>
+                            <h3 class="text-2xl font-bold text-white mb-3">Generative AI & LLMs integration</h3>
+                            <p class="text-slate-400 font-light text-base leading-relaxed">
+                                สู่จุดสูงสุดของการพัฒนา Generative AI ด้วยการนำ APIs ระดับโลกอย่าง Gemini API มาสร้างระบบถามตอบ, ระบบจัดการความรู้ (RAG - Retrieval-Augmented Generation) และสร้างแอปพลิเคชันใช้งานจริง
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">API Integration</span>
+                                <span class="bg-slate-700/50 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">LLM & Prompt Eng.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Directory Section -->
+    <section id="tools" class="py-28 bg-ai-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-5">คลังเครื่องมือ AI ที่เกี่ยวข้อง</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-ai-primary to-ai-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg font-light">
+                    รวบรวมเทคโนโลยี AI ยอดนิยมที่เหมาะสมกับแต่ละสาขาอาชีพ เพื่ออัปเกรดประสิทธิภาพการทำงานของคุณ
+                </p>
+            </div>
+
+            <!-- Directory Filter Bar -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-container">
+                <button onclick="filterTools('all')" class="filter-btn active bg-ai-primary text-white px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base">ทั้งหมด</button>
+                <button onclick="filterTools('chat')" class="filter-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base">แชทบอท & ข้อความ</button>
+                <button onclick="filterTools('image')" class="filter-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base">แต่งภาพ & งานออกแบบ</button>
+                <button onclick="filterTools('coding')" class="filter-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base">ช่วยเขียนโปรแกรม</button>
+                <button onclick="filterTools('productivity')" class="filter-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base">เพิ่มผลผลิต (Productivity)</button>
+            </div>
+
+            <!-- Search Bar Inside Tools -->
+            <div class="max-w-md mx-auto mb-16 relative">
+                <input type="text" id="tool-search" oninput="searchTools()" placeholder="พิมพ์เพื่อค้นชื่อ AI..." class="w-full bg-ai-card border border-slate-700 rounded-full px-6 py-3.5 pl-12 text-white focus:outline-none focus:border-ai-accent transition-all text-sm sm:text-base">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-slate-500"></i>
+            </div>
+
+            <!-- Tools Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-grid">
+                
+                <!-- Tool 1: Gemini -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-ai-primary transition-all duration-300" data-category="chat" data-name="gemini">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center border border-indigo-500/20">
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl text-ai-primary animate-pulse"></i>
+                        </div>
+                        <span class="bg-indigo-500/10 text-ai-primary text-xs font-semibold px-3 py-1 rounded-full">Text & Vision</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Gemini 2.5 Flash</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">โมเดล AI ล่าสุดจาก Google มีความโดดเด่นทั้งการประมวลผลข้อความ ภาพ และความรวดเร็วในการคิดและค้นหาข้อมูลอ้างอิง</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Google</span>
+                        <a href="https://gemini.google.com" target="_blank" class="text-ai-primary font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 2: ChatGPT -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-ai-secondary transition-all duration-300" data-category="chat" data-name="chatgpt">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center border border-purple-500/20">
+                            <i class="fa-solid fa-message text-2xl text-ai-secondary"></i>
+                        </div>
+                        <span class="bg-purple-500/10 text-ai-secondary text-xs font-semibold px-3 py-1 rounded-full">NLP & Multi-modal</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">ChatGPT (GPT-4o)</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">บอทสนทนาอัจฉริยะจาก OpenAI ที่ช่วยทำงานเอกสาร แปลภาษา เขียนสคริปต์ และแก้ปัญหาคณิตศาสตร์ระดับซับซ้อนได้อย่างน่าทึ่ง</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: OpenAI</span>
+                        <a href="https://chat.openai.com" target="_blank" class="text-ai-secondary font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 3: Midjourney -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-ai-accent transition-all duration-300" data-category="image" data-name="midjourney">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center border border-cyan-500/20">
+                            <i class="fa-solid fa-palette text-2xl text-ai-accent"></i>
+                        </div>
+                        <span class="bg-cyan-500/10 text-ai-accent text-xs font-semibold px-3 py-1 rounded-full">AI Art Generator</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Midjourney v6</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">สุดยอดเครื่องมือสำหรับดีไซเนอร์เพื่อสร้างสรรค์ภาพวาดเสมือนจริง คอนเซ็ปต์อาร์ตระดับภาพยนตร์ เพียงป้อนคำอธิบายแบบตัวอักษร</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Midjourney</span>
+                        <a href="https://www.midjourney.com" target="_blank" class="text-ai-accent font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 4: Stable Diffusion -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-emerald-500 transition-all duration-300" data-category="image" data-name="stable diffusion">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
+                            <i class="fa-solid fa-image text-2xl text-emerald-500"></i>
+                        </div>
+                        <span class="bg-emerald-500/10 text-emerald-500 text-xs font-semibold px-3 py-1 rounded-full">Open Source Art</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Stable Diffusion 3</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">โมเดลสร้างภาพที่เป็น Open-source คุณภาพสูง สามารถนำไปติดตั้งรันบนเครื่องของตัวเองเพื่อดัดแปลง โมดิฟายและฝึกฝนโมเดลใหม่ๆ ได้</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Stability AI</span>
+                        <a href="https://stability.ai" target="_blank" class="text-emerald-500 font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 5: GitHub Copilot -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-blue-500 transition-all duration-300" data-category="coding" data-name="github copilot">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center border border-blue-500/20">
+                            <i class="fa-solid fa-code text-2xl text-blue-500"></i>
+                        </div>
+                        <span class="bg-blue-500/10 text-blue-500 text-xs font-semibold px-3 py-1 rounded-full">AI Coding Assistant</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">GitHub Copilot</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">เพื่อนคู่คิดของโปรแกรมเมอร์ที่จะช่วยเติมบรรทัดโค้ด เขียนโปรแกรมต่ออัตโนมัติ ค้นหาข้อบกพร่อง และประหยัดเวลาการเขียนโค้ดซ้ำๆ ซ้อนๆ</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: GitHub / OpenAI</span>
+                        <a href="https://github.com/features/copilot" target="_blank" class="text-blue-500 font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 6: Cursor -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-pink-500 transition-all duration-300" data-category="coding" data-name="cursor">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center border border-pink-500/20">
+                            <i class="fa-solid fa-terminal text-2xl text-pink-500"></i>
+                        </div>
+                        <span class="bg-pink-500/10 text-pink-500 text-xs font-semibold px-3 py-1 rounded-full">AI First IDE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Cursor Editor</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">โปรแกรมแก้ไขโค้ดยุคใหม่ที่ดัดแปลงมาจาก VS Code โดยฝังการเชื่อมต่อ AI ทั้งการแชท สั่งเขียน และตรวจสอบแก้ไขทั่วโค้ดทุกส่วนอย่างราบรื่น</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Anysphere</span>
+                        <a href="https://www.cursor.com" target="_blank" class="text-pink-500 font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 7: Notion AI -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-orange-500 transition-all duration-300" data-category="productivity" data-name="notion ai">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/20">
+                            <i class="fa-solid fa-file-pen text-2xl text-orange-500"></i>
+                        </div>
+                        <span class="bg-orange-500/10 text-orange-500 text-xs font-semibold px-3 py-1 rounded-full">Productivity</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Notion AI</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">ผู้ช่วยส่วนตัวในการจดบันทึก สรุปเนื้อหาประชุม เขียนร่างโครงงานใหม่ คัดย่อวิทยานิพนธ์ และระดมความคิดเห็นได้รวดเร็วทันใจ</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Notion</span>
+                        <a href="https://www.notion.so/product/ai" target="_blank" class="text-orange-500 font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Tool 8: Gamma App -->
+                <div class="tool-card bg-ai-card p-6 rounded-2xl border border-slate-800 hover:-translate-y-2 hover:border-red-500 transition-all duration-300" data-category="productivity" data-name="gamma app">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center border border-red-500/20">
+                            <i class="fa-solid fa-display text-2xl text-red-500"></i>
+                        </div>
+                        <span class="bg-red-500/10 text-red-500 text-xs font-semibold px-3 py-1 rounded-full">Slides & Web</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Gamma App</h3>
+                    <p class="text-slate-400 font-light text-sm mb-6 leading-relaxed">เปลี่ยนไอเดียให้กลายเป็นสไลด์ พรีเซนเตชัน เอกสาร หรือหน้าเว็บไซต์ได้อย่างง่ายดายผ่านการพิมพ์สั่งงาน เพียงสั้นๆ ไม่กี่ประโยค</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-500">ผู้พัฒนา: Gamma</span>
+                        <a href="https://gamma.app" target="_blank" class="text-red-500 font-medium hover:underline text-sm flex items-center gap-1">ใช้งาน <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Playground Sandbox Section -->
+    <section id="playground" class="py-28 bg-slate-900/50 border-t border-slate-800 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-5">AI Playground Sandbox</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-ai-primary to-ai-secondary mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg font-light">
+                    ทดสอบสั่งการ "AI อัจฉริยะจำลอง" ค้นหาระดับพลังและดูการคิดแก้ปัญหาแบบข้อความ หรือสร้างสรรค์ภาพกราฟิกด้วย CSS
+                </p>
+            </div>
+
+            <!-- Playground Interface -->
+            <div class="bg-ai-card rounded-3xl shadow-2xl overflow-hidden border border-slate-800 flex flex-col md:flex-row">
+                
+                <!-- Left Control Box -->
+                <div class="bg-slate-950 p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4">ตั้งค่าโมเดลจำลอง</h3>
+                        <p class="text-slate-400 text-sm mb-8 font-light">เลือกโหมด AI ที่ต้องการทดสอบแล้วกรอกข้อความเพื่อสร้างผลงาน</p>
+                        
+                        <div class="space-y-6">
+                            <!-- Model Select -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">ประเภทโมเดล</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="setPlaygroundMode('chat')" id="play-mode-chat" class="mode-btn active bg-ai-primary text-white p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent transition-all">
+                                        <i class="fa-solid fa-comment-dots text-lg"></i>
+                                        <span>บอทนักคิด</span>
+                                    </button>
+                                    <button onclick="setPlaygroundMode('art')" id="play-mode-art" class="mode-btn bg-slate-800 text-slate-400 p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent hover:bg-slate-700 transition-all">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                                        <span>ภาพศิลป์ CSS</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Temperature Info -->
+                            <div class="pt-4 border-t border-slate-800">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">ความสร้างสรรค์ (Temperature)</label>
+                                <input type="range" min="0" max="100" value="70" class="w-full accent-ai-accent bg-slate-800 rounded-lg cursor-pointer">
+                                <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                    <span>ต่ำ (แม่นยำ)</span>
+                                    <span>สูง (สร้างสรรค์)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 hidden md:block">
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                            <span>โมเดลจำลองออนไลน์พร้อมตอบกลับ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Working Box -->
+                <div class="p-8 md:w-2/3 flex flex-col justify-between min-h-[450px]">
+                    <!-- Output Console Area -->
+                    <div id="playground-output" class="flex-grow flex flex-col justify-center items-center text-center p-6 border-2 border-dashed border-slate-800 rounded-2xl mb-6 bg-slate-900/30 overflow-y-auto">
+                        <i id="output-placeholder-icon" class="fa-solid fa-terminal text-5xl text-slate-700 mb-4 animate-pulse"></i>
+                        <h4 id="output-title" class="text-lg font-bold text-slate-400 mb-2">รอคอยคำสั่ง (Prompt) ของคุณ</h4>
+                        <p id="output-desc" class="text-sm text-slate-500 max-w-md font-light">ลองกรอกหัวข้อที่อยากให้ AI ช่วยเขียน หรือเขียนโค้ดภาพศิลปะ CSS (ลองพิมพ์เช่น: "สอนเขียน Python", "อวกาศ", "ต้นไม้")</p>
+                        
+                        <!-- Real-time AI response element (hidden originally) -->
+                        <div id="ai-response-container" class="hidden w-full text-left font-light leading-relaxed text-sm text-slate-300">
+                            <!-- Dynamic Content Here -->
+                        </div>
+                        
+                        <!-- Art Frame element (hidden originally) -->
+                        <div id="ai-art-container" class="hidden w-48 h-48 rounded-2xl flex items-center justify-center transition-all duration-700">
+                            <!-- Dynamic Art Elements Here -->
+                        </div>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form onsubmit="runPlayground(event)" class="relative">
+                        <input type="text" id="playground-prompt" required placeholder="ป้อนความต้องการของคุณตรงนี้ เช่น 'เขียนบทกลอนเกี่ยวกับความรัก'" class="w-full bg-slate-950 border border-slate-700 rounded-2xl px-6 py-4.5 pr-20 text-white focus:outline-none focus:border-ai-primary transition-all text-sm sm:text-base">
+                        <button type="submit" class="absolute right-2 top-2 bg-gradient-to-r from-ai-primary to-ai-secondary text-white px-5 py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-all">
+                            ส่ง <i class="fa-solid fa-paper-plane ml-1"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section (หน้าโปรไฟล์ผู้จัดทำ) -->
+    <section id="profile" class="py-28 bg-ai-dark border-t border-slate-800 relative overflow-hidden">
+        <!-- Background Glow Effect -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-ai-primary/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-5">ข้อมูลผู้จัดทำ</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-ai-primary to-ai-secondary mx-auto rounded-full mb-6"></div>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="bg-ai-card p-10 rounded-3xl border border-slate-700 shadow-2xl flex flex-col md:flex-row items-center gap-10 hover:border-ai-primary transition-all duration-500 group">
+                
+                <!-- Profile Image -->
+                <div class="relative shrink-0">
+                    <!-- วงแหวนหมุนรอบรูป -->
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-r from-ai-primary to-ai-secondary animate-[spin_4s_linear_infinite] blur-[2px]"></div>
+                    <!-- กรอบรูปและรูปภาพ -->
+                    <div class="relative w-48 h-48 rounded-full overflow-hidden border-4 border-ai-card z-10 bg-ai-card">
+                        <!-- ดึงรูปภาพของคุณ นางสาวจิตตภา จาก Google Drive ผ่าน Direct Bypass Link ที่เสถียรที่สุดของ Google และมี SVG Avatar สำรองเมื่อเกิดข้อผิดพลาดในการโหลด -->
+                        <img src="https://lh3.googleusercontent.com/d/1QowT8BLiP_xefD-U4O1zg9fNGpaI2eg7" 
+                             onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/adventurer/svg?seed=Jittapha';" 
+                             alt="รูปภาพโปรไฟล์ นางสาวจิตตภา เจริญการ" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                </div>
+                
+                <!-- Profile Info -->
+                <div class="text-center md:text-left">
+                    <div class="inline-block px-4 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-ai-accent text-sm font-semibold mb-4">
+                        <i class="fa-solid fa-laptop-code text-xs mr-2"></i> Web Developer Student
+                    </div>
+                    
+                    <!-- ข้อมูลที่ปรับแก้สมบูรณ์ -->
+                    <h3 class="text-3xl font-bold text-white mb-2">นางสาวจิตตภา เจริญการ</h3>
+                    <p class="text-xl text-slate-400 font-light mb-6">รหัสนักศึกษา: <span class="font-medium text-slate-300">674295002</span></p>
+                    
+                    <p class="text-slate-500 text-sm max-w-md leading-relaxed mx-auto md:mx-0">
+                        เว็บไซต์ AI LearnSphere นี้จัดทำขึ้นเพื่อเป็นแหล่งรวบรวมความรู้และเครื่องมือปัญญาประดิษฐ์ เป็นส่วนหนึ่งของการศึกษาและพัฒนาทักษะด้านการเขียนโปรแกรมและการพัฒนาเว็บไซต์
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Brand Info -->
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-ai-primary to-ai-secondary flex items-center justify-center">
+                            <i class="fa-solid fa-brain text-white text-sm"></i>
+                        </div>
+                        <span class="font-bold text-xl tracking-wider text-white">AI<span class="text-ai-accent">Sphere</span></span>
+                    </a>
+                    <p class="text-slate-500 font-light text-sm mb-6 leading-relaxed">
+                        ศูนย์กลางความรู้ฟรีและฐานสารสนเทศเชิงปฏิบัติการด้าน AI สำหรับผู้เริ่มต้น สตาร์ทอัพ และนักประดิษฐ์ซอฟต์แวร์ไทย
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center hover:bg-ai-primary hover:text-white transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center hover:bg-ai-primary hover:text-white transition-colors"><i class="fa-brands fa-github text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center hover:bg-ai-primary hover:text-white transition-colors"><i class="fa-brands fa-discord text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Learning Path Quick Links -->
+                <div>
+                    <h4 class="text-base font-semibold text-white mb-6 border-b border-slate-800 pb-2 inline-block">เมนูการเรียนรู้</h4>
+                    <ul class="space-y-3 text-sm font-light text-slate-500">
+                        <li><a href="#roadmap" class="hover:text-ai-accent transition-colors">Python & Math เบื้องต้น</a></li>
+                        <li><a href="#roadmap" class="hover:text-ai-accent transition-colors">วิเคราะห์ข้อมูล (Pandas/NumPy)</a></li>
+                        <li><a href="#roadmap" class="hover:text-ai-accent transition-colors">แมชชีนเลิร์นนิงขั้นพื้นฐาน</a></li>
+                        <li><a href="#roadmap" class="hover:text-ai-accent transition-colors">การใช้งาน Gemini APIs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Tools Navigation -->
+                <div>
+                    <h4 class="text-base font-semibold text-white mb-6 border-b border-slate-800 pb-2 inline-block">เครื่องมือยอดฮิต</h4>
+                    <ul class="space-y-3 text-sm font-light text-slate-500">
+                        <li><a href="#tools" class="hover:text-ai-accent transition-colors">Google Gemini</a></li>
+                        <li><a href="#tools" class="hover:text-ai-accent transition-colors">OpenAI ChatGPT</a></li>
+                        <li><a href="#tools" class="hover:text-ai-accent transition-colors">GitHub Copilot</a></li>
+                        <li><a href="#tools" class="hover:text-ai-accent transition-colors">Cursor Code Editor</a></li>
+                    </ul>
+                </div>
+
+                <!-- Disclaimer & Notice -->
+                <div>
+                    <h4 class="text-base font-semibold text-white mb-6 border-b border-slate-800 pb-2 inline-block">ติดต่อ & อัปเดต</h4>
+                    <p class="text-slate-500 font-light text-sm leading-relaxed mb-4">
+                        คุณมีไอเดีย หรือต้องการส่งผลงาน AI คอร์สเรียนฟรี เข้าสู่แพลตฟอร์มของเราหรือไม่?
+                    </p>
+                    <a href="mailto:contact@example.com" class="text-ai-accent font-medium hover:underline text-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-envelope"></i> contact@learnsphere-ai.com
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Copyright Line -->
+            <div class="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-light text-slate-600">
+                <p>&copy; 2026 AI LearnSphere Hub. สร้างขึ้นเพื่อวัตถุประสงค์ในการศึกษาฟรี</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-400">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#" class="hover:text-slate-400">เงื่อนไขการใช้งาน</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic scripts -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars text-2xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-2xl';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Sticky Nav shadow on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if(window.scrollY > 50) {
+                nav.classList.add('shadow-2xl');
+            } else {
+                nav.classList.remove('shadow-2xl');
+            }
+        });
+
+        // Directory Filter logic
+        function filterTools(category) {
+            // Manage Active Filter Button class
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.className = "filter-btn bg-slate-800 text-slate-300 hover:bg-slate-700 px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base";
+            });
+            
+            // Set active state to clicked button
+            const clickedBtn = event.currentTarget;
+            clickedBtn.className = "filter-btn active bg-ai-primary text-white px-5 py-2 rounded-full font-medium transition-all text-sm md:text-base";
+
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if(category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Live Search logic for Tools
+        function searchTools() {
+            const query = document.getElementById('tool-search').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.tool-card');
+            
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const cat = card.getAttribute('data-category');
+                if (name.includes(query) || cat.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Playground Interactive Simulation logic
+        let playgroundMode = 'chat'; // default mode
+
+        function setPlaygroundMode(mode) {
+            playgroundMode = mode;
+            const chatBtn = document.getElementById('play-mode-chat');
+            const artBtn = document.getElementById('play-mode-art');
+            const promptInput = document.getElementById('playground-prompt');
+
+            // Reset buttons UI
+            chatBtn.className = "mode-btn bg-slate-800 text-slate-400 p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent hover:bg-slate-700 transition-all";
+            artBtn.className = "mode-btn bg-slate-800 text-slate-400 p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent hover:bg-slate-700 transition-all";
+
+            if (mode === 'chat') {
+                chatBtn.className = "mode-btn active bg-ai-primary text-white p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent transition-all";
+                promptInput.placeholder = "ป้อนความต้องการความรู้ เช่น 'สอนเขียน Python', 'แนะนำ Machine Learning'";
+            } else {
+                artBtn.className = "mode-btn active bg-ai-secondary text-white p-3 rounded-xl font-medium text-xs flex flex-col items-center justify-center gap-2 border border-transparent hover:bg-slate-700 transition-all";
+                promptInput.placeholder = "ป้อนจินตนาการเพื่อแต่งภาพ CSS เช่น 'อวกาศ', 'ต้นไม้', 'ท้องฟ้าสายรุ้ง'";
+            }
+            
+            resetPlaygroundConsole();
+        }
+
+        function resetPlaygroundConsole() {
+            document.getElementById('output-placeholder-icon').className = "fa-solid fa-terminal text-5xl text-slate-700 mb-4 animate-pulse";
+            document.getElementById('output-title').className = "text-lg font-bold text-slate-400 mb-2";
+            document.getElementById('output-title').innerText = "รอคอยคำสั่ง (Prompt) ของคุณ";
+            document.getElementById('output-desc').classList.remove('hidden');
+            document.getElementById('ai-response-container').classList.add('hidden');
+            document.getElementById('ai-art-container').classList.add('hidden');
+        }
+
+        function runPlayground(e) {
+            e.preventDefault();
+            const prompt = document.getElementById('playground-prompt').value.trim();
+            if (!prompt) return;
+
+            const icon = document.getElementById('output-placeholder-icon');
+            const title = document.getElementById('output-title');
+            const desc = document.getElementById('output-desc');
+            const textResponse = document.getElementById('ai-response-container');
+            const artResponse = document.getElementById('ai-art-container');
+
+            // Start Loading Animation
+            icon.className = "fa-solid fa-circle-notch text-5xl text-ai-accent animate-spin mb-4";
+            title.innerText = "กำลังคำนวณและสร้างผลงาน...";
+            desc.classList.add('hidden');
+            textResponse.classList.add('hidden');
+            artResponse.classList.add('hidden');
+
+            setTimeout(() => {
+                if (playgroundMode === 'chat') {
+                    // Generate smart-mock responses based on keyword triggers in prompt
+                    let outputText = "";
+                    const normalized = prompt.toLowerCase();
+                    
+                    if (normalized.includes('python') || normalized.includes('เขียนโค้ด') || normalized.includes('โปรแกรม')) {
+                        outputText = `🤖 **บอทนักคิด:** Python คือภาษาเริ่มต้นที่ดีที่สุด! โครงสร้างพื้นฐานที่ควรรู้:\n\n\`\`\`python\n# ตัวอย่างการประกาศตัวแปรและลูป\nfor i in range(3):\n    print("สวัสดีชาวโลก! ลำดับที่:", i)\n\`\`\`\n\n📌 **คำแนะนำเพิ่มเติม:** ศึกษาการนำเข้าไลบรารีอย่าง **Pandas** และ **Scikit-learn** ต่อไปในขั้นตอนที่ 2 ของเราครับ`;
+                    } else if (normalized.includes('ml') || normalized.includes('machine learning') || normalized.includes('เรียน')) {
+                        outputText = `🤖 **บอทนักคิด:** ยินดีด้วยที่สนใจ Machine Learning! พื้นฐานสำคัญคือ:\n1. **Supervised Learning** (เช่น Regression, Classification)\n2. **Unsupervised Learning** (เช่น Clustering แบบ K-means)\n\nศึกษาต่อในขั้นตอนที่ 2 ของเราได้ทันที เพื่อเรียนรู้วิธีแปลงสูตรสถิติให้กลายเป็นโค้ดประเมินผล!`;
+                    } else if (normalized.includes('อวกาศ') || normalized.includes('star') || normalized.includes('galaxy')) {
+                        outputText = `🤖 **บอทนักคิด:** อวกาศ (Space) คือสิ่งลี้ลับสุดกว้างใหญ่! ระบบดวงดาวก่อกำเนิดจากพลังงานและแรงดึงดูด ดั่งเช่นนิวรอนคอมพิวเตอร์ที่ร้อยเชื่อมข้อมูลเป็นกลุ่มเนบิวล่าประมวลผลขนาดใหญ่`;
+                    } else {
+                        outputText = `🤖 **บอทนักคิด:** ได้รับคำสั่ง "${prompt}" เรียบร้อยแล้ว!\n\nจากการวิเคราะห์ความต้องการของคุณ ระบบ AI จำลองเสนอแนะให้คุณมุ่งเน้นศึกษา **Prompt Engineering** และการทำความเข้าใจ NLP เพื่อช่วยให้การสั่งงานโมเดลภาษาขนาดใหญ่ (LLMs) มีประสิทธิภาพสูงสุดและได้ข้อความตามต้องการได้ง่ายยิ่งขึ้น`;
+                    }
+
+                    icon.className = "fa-solid fa-square-poll-horizontal text-5xl text-ai-primary mb-4";
+                    title.innerText = "การประมวลผลเสร็จสิ้น";
+                    textResponse.innerHTML = outputText.replace(/\n/g, '<br>');
+                    textResponse.classList.remove('hidden');
+
+                } else {
+                    // Art Sandbox generation with beautiful CSS designs
+                    const normalized = prompt.toLowerCase();
+                    artResponse.innerHTML = ''; // clear previous elements
+                    let artClass = '';
+                    let innerElements = '';
+
+                    if (normalized.includes('อวกาศ') || normalized.includes('ดาว') || normalized.includes('space') || normalized.includes('galaxy')) {
+                        artResponse.style.background = 'radial-gradient(circle, #2e0854, #000000)';
+                        innerElements = `
+                            <div class="relative w-full h-full flex items-center justify-center">
+                                <div class="w-16 h-16 rounded-full bg-yellow-300 shadow-[0_0_40px_#facc15] animate-pulse"></div>
+                                <div class="absolute w-2 h-2 rounded-full bg-white top-8 left-12 animate-ping"></div>
+                                <div class="absolute w-3 h-3 rounded-full bg-purple-400 bottom-10 right-10"></div>
+                            </div>
+                        `;
+                    } else if (normalized.includes('ต้นไม้') || normalized.includes('ป่า') || normalized.includes('tree') || normalized.includes('forest')) {
+                        artResponse.style.background = 'linear-gradient(to top, #064e3b, #022c22)';
+                        innerElements = `
+                            <div class="relative w-full h-full flex flex-col items-center justify-end pb-8">
+                                <div class="w-24 h-24 rounded-full bg-emerald-400/80 blur-sm mb-[-20px]"></div>
+                                <div class="w-16 h-16 rounded-full bg-emerald-500 mb-[-10px]"></div>
+                                <div class="w-6 h-16 bg-amber-800 rounded-sm"></div>
+                            </div>
+                        `;
+                    } else if (normalized.includes('ท้องฟ้า') || normalized.includes('รุ้ง') || normalized.includes('rainbow') || normalized.includes('sky')) {
+                        artResponse.style.background = 'linear-gradient(135deg, #f472b6, #38bdf8, #facc15)';
+                        innerElements = `
+                            <div class="relative w-full h-full flex items-center justify-center">
+                                <div class="w-24 h-12 rounded-full bg-white/80 blur-[1px] absolute top-12"></div>
+                                <div class="w-10 h-10 rounded-full bg-yellow-200 animate-bounce"></div>
+                            </div>
+                        `;
+                    } else {
+                        // Abstract Art Default
+                        artResponse.style.background = 'linear-gradient(45deg, #6366f1, #a855f7, #ec4899)';
+                        innerElements = `
+                            <div class="relative w-full h-full flex items-center justify-center animate-spin" style="animation-duration: 8s;">
+                                <div class="w-20 h-20 border-4 border-white/50 rounded-lg"></div>
+                                <div class="w-16 h-16 border-4 border-cyan-300 absolute"></div>
+                            </div>
+                        `;
+                    }
+
+                    icon.className = "hidden";
+                    title.innerText = "ภาพศิลปะ CSS ของคุณ:";
+                    artResponse.innerHTML = innerElements;
+                    artResponse.classList.remove('hidden');
+                }
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
